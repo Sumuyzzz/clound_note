@@ -1,11 +1,16 @@
 import { createRouter, createWebHashHistory } from "vue-router";
-import Login from "@/components/Login.vue";
-import HelloWorld from '@/components/HelloWorld.vue'
+import Login from "@/view/Login.vue";
+import NoteBooks from '@/view/NoteBooks.vue'
+import Note from '@/view/Note.vue'
+import Trash from '@/view/Trash.vue'
+
+
 
 const routes = [
-  { path: '/hello:id', component: HelloWorld },
-  { path: '/login:id', component: Login },
-
+  { path: '/notebooks', component: NoteBooks },
+  { path: '/login', component: Login },
+  { path: '/note:id', component: Note },
+  { path: '/trash:id', component: Trash }
 ]
 
 
