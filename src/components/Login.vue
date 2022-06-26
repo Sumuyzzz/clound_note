@@ -1,11 +1,10 @@
+
 <script setup lang="ts">
-const msg = $ref('hello world')
-
-
+const msg = $ref(" login ")
 
 </script>
 <template>
-  <div id="hello">
+  <div id="login">
     <h1>{{ msg }}</h1>
     <div>User {{ $route.params.id }}</div>
   </div>
@@ -13,7 +12,9 @@ const msg = $ref('hello world')
 
 <style scoped>
 
+
 h1 {
-  color:green;
+  color: red;
 }
+
 </style>
