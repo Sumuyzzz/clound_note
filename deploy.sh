@@ -4,7 +4,7 @@
 set -e
 
 # build
-npm run build
+pnpm  build
 
 # navigate into the build output directory
 cd dist
@@ -23,6 +23,6 @@ git commit -m 'deploy'
 # if you are deploying to https://<USERNAME>.github.io/<REPO>
 # git push -f git@github.com:<USERNAME>/<REPO>.git main:gh-pages
 
-git push -f git@github.com:Sumuyzzz/note_vue3.git main:gh-pages
+git push -f git@github.com:Sumuyzzz/note_vue3.git gh-pages
 
 cd -
