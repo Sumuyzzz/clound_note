@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { ref, reactive } from 'vue'
+import Auth from '@/lib/auth'
+
+
 
 const isShowLogin = ref(true)
 
@@ -43,7 +46,15 @@ const onRegister = () => {
   }
   register.isError = false
   register.notice = ''
-
+  console.log(Auth)
+  Auth.register({
+    username: register.username,
+    password: register.password
+  }).then(data => {
+    console.log(data)
+  }).catch(e => {
+    console.log(e)
+  })
 }
 
 
@@ -61,7 +72,15 @@ const onLogin = () => {
   }
   login.isError = false
   login.notice = ''
-  console.log(`start login..., username: ${login.username} , password: ${login.password}`)
+
+  Auth.login({
+    username: login.username,
+    password: login.password
+  }).then(data => {
+    console.log(data)
+  }).catch(e => {
+    console.log(e)
+  })
 }
 
 </script>

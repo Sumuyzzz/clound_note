@@ -1,3 +1,16 @@
+<script lang="ts" setup>
+import Auth from '../lib/auth'
+import avatar from '@/components/Avatar.vue'
+
+
+
+const logout = () => {
+  console.log('logout')
+  Auth.logout().then((data) => {
+    console.log(data)
+  })
+}
+</script>
 <template>
   <div id="sidebar">
     <avatar></avatar>
@@ -6,20 +19,13 @@
       <router-link to="/notebooks" title="笔记本" class="link"><i class="iconfont icon-notebook"></i></router-link>
       <router-link to="/trash:2" title="回收站" class="link"><i class="iconfont icon-trash"></i></router-link>
     </div>
-    <div class="logout">
+    <div class="logout" @click="logout">
       <i class="iconfont icon-logout"></i>
     </div>
   </div>
 </template>
 
-<script lang="ts" setup>
-import avatar from '@/components/Avatar.vue'
-
-
-</script>
-
 <style lang="scss" scoped >
-
 #sidebar {
   position: relative;
   width: 56px;
