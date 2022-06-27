@@ -1,5 +1,6 @@
 <template>
   <span :title="user.username">{{ slug }}</span>
+  <slot></slot>
 </template>
 
 <script setup lang="ts">

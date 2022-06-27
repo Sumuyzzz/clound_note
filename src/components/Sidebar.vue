@@ -10,10 +10,14 @@ const logout = () => {
     console.log(data)
   })
 }
+
 </script>
 <template>
   <div id="sidebar">
-    <avatar></avatar>
+    <router-link to="/login" title="笔记" class="link">
+      <avatar />
+    </router-link>
+
     <div class="icons">
       <router-link to="/note:1" title="笔记" class="link"><i class="iconfont icon-note"></i></router-link>
       <router-link to="/notebooks" title="笔记本" class="link"><i class="iconfont icon-notebook"></i></router-link>
