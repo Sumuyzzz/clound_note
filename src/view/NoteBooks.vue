@@ -1,5 +1,6 @@
 <script setup lang="ts">
-const msg = $ref('notebooks')
+import {ref} from 'vue'
+const msg = ref('notebooks')
 
 
 
@@ -7,7 +8,7 @@ const msg = $ref('notebooks')
 <template>
   <div id="notebooks">
     <h1>{{ msg }}</h1>
-    <div>User {{ $route.params.id }}</div>
+    <div>User {{ $route.params }}</div>
   </div>
 </template>
 

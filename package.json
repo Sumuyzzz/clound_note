@@ -9,14 +9,15 @@
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
-
+    "normalize.css": "^8.0.1",
     "unplugin-vue-components": "^0.19.9",
     "vue": "^3.2.25",
     "vue-router": "4"
   },
   "devDependencies": {
-        "gh-pages": "^4.0.0",
     "@vitejs/plugin-vue": "^2.3.3",
+    "gh-pages": "^4.0.0",
+    "sass": "^1.53.0",
     "typescript": "^4.5.4",
     "vite": "^2.9.9",
     "vue-tsc": "^0.34.7"

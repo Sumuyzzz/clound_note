@@ -1,6 +1,7 @@
 
 <script setup lang="ts">
-const msg = $ref(" note ")
+import {ref} from 'vue'
+const msg = ref(" note ")
 
 </script>
 <template>

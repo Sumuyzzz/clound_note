@@ -1,6 +1,6 @@
-
 <script setup lang="ts">
-const msg = $ref(" login ")
+import {ref} from 'vue'
+const msg = ref(" logineqwe ")
 
 </script>
 <template>

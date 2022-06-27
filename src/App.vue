@@ -1,24 +1,23 @@
 <script setup lang="ts">
+import sidebar from '@/components/Sidebar.vue'
 </script>
 
 <template>
-  <ul class="nav">
-    <li>
-      <router-link to="/notebooks">NoteBooks</router-link>
-    </li>
-    <li>
-      <router-link to="/login">Login</router-link>
-    </li>
-    <li>
-      <router-link to="/note:1">Note</router-link>
-    </li>
-    <li>
-      <router-link to="/trash:2">Trash</router-link>
-    </li>
-  </ul>
-  <router-view></router-view>
+  <div class="layout">
+    <sidebar></sidebar>
+    <router-view></router-view>
+  </div>
+
 </template>
 
-<style>
+<style scoped>
+@import '//at.alicdn.com/t/font_496303_kqrjhri8l25d0a4i.css';
+
+
+.layout {
+  display: flex;
+  height: 100vh;
+}
+
 
 </style>
