@@ -6,7 +6,7 @@ install:
 script:
   - pnpm build
 deploy:
-  provider: pages
+  provider: gh-pages
   skip_cleanup: true
   local_dir: dist
   github_token: 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
