@@ -7,7 +7,7 @@ const msg = ref(" trash ")
 <template>
   <div id="Trash">
     <h1>{{ msg }}</h1>
-    <div>User {{ $route.params.id }}</div>
+
   </div>
 </template>
 
