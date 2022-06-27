@@ -7,7 +7,6 @@ const msg = ref(" note ")
 <template>
   <div id="note">
     <h1>{{ msg }}</h1>
-    <div>User {{ $route.params.id }}</div>
   </div>
 </template>
 
