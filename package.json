@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "axios": "^0.27.2",
+    "mitt": "^3.0.0",
     "normalize.css": "^8.0.1",
     "unplugin-vue-components": "^0.19.9",
     "vue": "^3.2.25",
