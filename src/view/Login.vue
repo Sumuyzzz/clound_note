@@ -49,13 +49,16 @@ const onRegister = () => {
   }
   register.isError = false
   register.notice = ''
-  console.log(Auth)
   Auth.register({
     username: register.username,
     password: register.password
   }).then(data => {
     console.log(data)
+    register.isError = false
+    register.notice = '注册成功'
   }).catch(e => {
+    register.isError = true
+    register.notice = e.msg
     console.log(e)
   })
 }
@@ -95,7 +98,7 @@ const onLogin = () => {
 
 
 const close = () => {
-  router.push({ path: '/'})
+  router.push({ path: '/' })
 }
 
 </script>
@@ -133,9 +136,6 @@ const close = () => {
 </template>
 
 <style scoped lang="scss">
-
-
-
 .modal-mask {
   position: fixed;
   z-index: 100;
@@ -176,8 +176,8 @@ const close = () => {
         .close {
           position: absolute;
           right: 10px;
-          top:10px;
-                    cursor: pointer;
+          top: 10px;
+          cursor: pointer;
         }
 
         h3 {
@@ -189,8 +189,8 @@ const close = () => {
           cursor: pointer;
 
           &:nth-of-type(1) {
-            margin-top:40px;
-          border-bottom: 1px solid #eee;
+            margin-top: 40px;
+            border-bottom: 1px solid #eee;
           }
 
           &:nth-of-type(2) {
