@@ -1,16 +1,34 @@
 <template>
-  <span :title="user.username">{{ slug }}</span>
+  <span :title="username" @click="$emit('login')">{{ slug }}</span>
   <slot></slot>
 </template>
 
 <script setup lang="ts">
 
-import { reactive, ref } from 'vue';
+import { ref ,computed} from 'vue';
+import Auth from '@/lib/auth'
 
-const user = reactive({
-  username: 'hunger'
+const username = ref('未登录')
+
+Auth.getInfo().then((user) => {
+  username.value= user.data.username
 })
-const slug = ref('H')
+
+
+const slug = computed({
+  get () {
+    return username.value[0]
+  },
+    set(newValue) {
+    return username.value = newValue
+  }
+}
+)
+
+
+
+
+
 
 </script>
 
