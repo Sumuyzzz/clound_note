@@ -5,26 +5,29 @@
 
 <script setup lang="ts">
 
-import { ref ,computed} from 'vue';
+import { ref, computed } from 'vue';
 import Auth from '@/lib/auth'
 
 const username = ref('未登录')
 
 Auth.getInfo().then((user) => {
-  username.value= user.data.username
+
+  if (user.isLogin) {
+    username.value = user.data.username
+  }
+  console.log(user);
 })
 
 
 const slug = computed({
-  get () {
+  get() {
     return username.value[0]
   },
-    set(newValue) {
+  set(newValue) {
     return username.value = newValue
   }
 }
 )
-
 
 
 
@@ -47,6 +50,6 @@ span {
   text-transform: uppercase;
   font-size: 18px;
   margin-top: 15px;
-
+  cursor: pointer;
 }
 </style>
