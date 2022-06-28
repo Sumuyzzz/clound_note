@@ -10,7 +10,6 @@ axios.defaults.baseURL = 'https://note-server.hunger-valley.com'
 axios.defaults.withCredentials = true
 
 
-
 export default function request(url, type = 'GET', data = {}) {
   return new Promise((resolve, reject) => {
     let option = {
@@ -23,15 +22,17 @@ export default function request(url, type = 'GET', data = {}) {
     if (type.toLowerCase() === 'get') {
       option.params = data
     } else {
-      option.date = data
+      option.data = data
     }
     axios(option).then(res => {
       if (res.status === 200) {
         resolve(res.data)
       } else {
+        console.error(res.data)
         reject(res.data)
       }
     }).catch(error => {
+      console.error(error)
       reject('错误:' + error)
     })
   })

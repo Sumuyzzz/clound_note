@@ -1,12 +1,17 @@
 <script lang="ts" setup>
 import Auth from '../lib/auth'
 import avatar from '@/components/Avatar.vue'
+import { useRouter, useRoute } from 'vue-router'
 
+const router = useRouter()
 
+function login() {
+  router.push({ path: '/login' })
+}
 
 const logout = () => {
   console.log('logout')
-  Auth.logout().then((data) => {
+  Auth.logout().then((data: String) => {
     console.log(data)
   })
 }
@@ -14,9 +19,9 @@ const logout = () => {
 </script>
 <template>
   <div id="sidebar">
-    <router-link to="/login" title="笔记" class="link">
-      <avatar />
-    </router-link>
+
+    <avatar @login="login" />
+
 
     <div class="icons">
       <router-link to="/note:1" title="笔记" class="link"><i class="iconfont icon-note"></i></router-link>

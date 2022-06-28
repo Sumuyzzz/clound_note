@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { ref, reactive } from 'vue'
 import Auth from '@/lib/auth'
+import { useRouter } from 'vue-router';
 
-
+const router = useRouter()
 
 const isShowLogin = ref(true)
 
@@ -72,15 +73,22 @@ const onLogin = () => {
   }
   login.isError = false
   login.notice = ''
+  console.log(`star login...,username:${login.username},password:${login.password}`)
 
   Auth.login({
     username: login.username,
     password: login.password
   }).then(data => {
-    console.log(data)
+    login.isError = false
+    login.notice = ''
+    router.push({ path: '/' })
+    console.log(`start redirect...`)
   }).catch(e => {
     console.log(e)
+    login.isError = true
+    login.notice = e.msg
   })
+
 }
 
 </script>
