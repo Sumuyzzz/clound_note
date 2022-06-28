@@ -10,12 +10,21 @@ axios.defaults.baseURL = 'https://note-server.hunger-valley.com'
 axios.defaults.withCredentials = true
 
 
-export default function request(url, type = 'GET', data = {}) {
+
+type Options = {
+  url: string, 
+  method: string,
+  validateStatus:(value: number) => boolean,
+  data?: {}, 
+  params?:{}, 
+}
+
+export default function request(url: string, type = 'GET', data = {}) {
   return new Promise((resolve, reject) => {
-    let option = {
+    let option: Options = {
       url,
       method: type,
-      validateStatus: function (status) {
+      validateStatus: function (status: number) {
         return (status >= 200 && status < 300 || status === 400)
       }
     }

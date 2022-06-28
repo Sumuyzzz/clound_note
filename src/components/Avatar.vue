@@ -8,23 +8,25 @@
 import { ref, computed } from 'vue';
 import Auth from '@/lib/auth'
 import EventEmitter from '@/lib/bus'
+import { User } from '@/type/type'
+
 
 const username = ref('未登录')
 
 const bus = new EventEmitter()
 
 
-bus.on('userInfo', (user: { username: string; }) => {
+
+bus.on('userInfo', (user: User) => {
   username.value= user.username
 })
 
 
 
-Auth.getInfo().then((user) => {
-  if (user.isLogin) {
-    username.value = user.data.username
+Auth.getInfo().then((userData:any) => {
+  if (userData.isLogin) {
+    username.value = userData.data.username
   }
-  console.log(user);
 })
 
 

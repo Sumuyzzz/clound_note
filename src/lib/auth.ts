@@ -1,4 +1,6 @@
 import request from '@/lib/request';
+import { User } from '@/type/type'
+
 
 const URL = {
   REGISTER: '/auth/register',
@@ -8,12 +10,15 @@ const URL = {
 }
 
 
+
+
+
 export default {
-  register({ username, password }) {
-    return request(URL.REGISTER, 'POST', { username, password })
+  register(user: User) {
+    return request(URL.REGISTER, 'POST', user)
   },
-  login({ username, password }) {
-    return request(URL.LOGIN, 'POST', { username, password })
+  login(user: User) {
+    return request(URL.LOGIN, 'POST', user)
   },
   logout() {
     return request(URL.LOGOUT)
