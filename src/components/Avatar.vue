@@ -1,34 +1,21 @@
-<template>
-  <span :title="username" @click="$emit('login')">{{ slug }}</span>
-  <slot></slot>
-</template>
-
 <script setup lang="ts">
-
-import { ref, computed } from 'vue';
+import { computed, ref } from 'vue'
 import Auth from '@/lib/auth'
 import EventEmitter from '@/lib/bus'
-import { User } from '@/type/type'
-
+import type { User } from '@/type/type'
 
 const username = ref('未登录')
 
 const bus = new EventEmitter()
 
+// bus.once('userInfo', (user: User) => {
+//   username.value = user.username
+// })
 
-
-bus.on('userInfo', (user: User) => {
-  username.value= user.username
-})
-
-
-
-Auth.getInfo().then((userData:any) => {
-  if (userData.isLogin) {
+Auth.getInfo().then((userData: any) => {
+  if (userData.isLogin)
     username.value = userData.data.username
-  }
 })
-
 
 const slug = computed({
   get() {
@@ -36,15 +23,14 @@ const slug = computed({
   },
   set(newValue) {
     return username.value = newValue
-  }
-}
+  },
+},
 )
-
-
-
-
-
 </script>
+
+<template>
+  <span :title="username" @click="$emit('login')">{{ slug }}</span>
+</template>
 
 <style scoped>
 span {

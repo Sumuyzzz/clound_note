@@ -1,13 +1,11 @@
-
 <script setup lang="ts">
-import {ref} from 'vue'
-const msg = ref(" trash ")
-
+import { ref } from 'vue'
+const msg = ref(' trash ')
 </script>
+
 <template>
   <div id="Trash">
     <h1>{{ msg }}</h1>
-
   </div>
 </template>
 

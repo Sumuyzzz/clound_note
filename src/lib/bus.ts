@@ -14,8 +14,8 @@ export default class EventEmitter {
     }
   }
 
-  on(target: string, handle: (value:any) => void) {
-    this.events[target] = this.events[target] || new Array()
+  on(target: string, handle: (value: any) => void) {
+    this.events[target] = this.events[target] || []
     this.events[target].push(handle)
     return this
   }
@@ -26,8 +26,8 @@ export default class EventEmitter {
   }
 
   emit(target: string, ...args: any) {
-    this.events[target].map((handle: () => void) => {
-      handle.apply(null, args)
+    this.events[target].forEach((handle: () => void) => {
+      handle.apply(this, args)
     })
     return this
   }
@@ -40,10 +40,5 @@ export default class EventEmitter {
     this.on(target, wrapper)
     return this
   }
-
 }
-
-
-
-
 
