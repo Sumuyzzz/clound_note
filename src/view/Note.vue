@@ -1,9 +1,8 @@
-
 <script setup lang="ts">
-import {ref} from 'vue'
-const msg = ref(" note ")
-
+import { ref } from 'vue'
+const msg = ref(' note ')
 </script>
+
 <template>
   <div id="note">
     <h1>{{ msg }}</h1>

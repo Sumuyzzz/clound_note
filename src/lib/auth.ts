@@ -1,17 +1,12 @@
-import request from '@/lib/request';
-import { User } from '@/type/type'
-
+import request from '@/lib/request'
+import type { User } from '@/type/type'
 
 const URL = {
   REGISTER: '/auth/register',
   LOGIN: '/auth/login',
   LOGOUT: '/auth/logout',
-  GET_INFO: '/auth'
+  GET_INFO: '/auth',
 }
-
-
-
-
 
 export default {
   register(user: User) {
@@ -25,5 +20,5 @@ export default {
   },
   getInfo() {
     return request(URL.GET_INFO)
-  }
+  },
 }

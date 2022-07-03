@@ -1,11 +1,8 @@
 <script lang="ts" setup>
 import { useRouter } from 'vue-router'
 import Auth from '../lib/auth'
-import EventEmitter from '../lib/bus'
-import { User } from '../type/type'
-import avatar from '@/components/Avatar.vue'
 
-const bus = new EventEmitter()
+import avatar from '@/components/Avatar.vue'
 
 const router = useRouter()
 

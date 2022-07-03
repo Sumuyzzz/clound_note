@@ -42,7 +42,7 @@ const onEdit = (notebook) => {
 
   Notebooks.updateNotebook(notebook.id, { title })
     .then((res) => {
-      Console.log(res)
+      window.console.log(res)
       notebook.title = title
       alert(res.msg)
     })
@@ -71,7 +71,7 @@ const onDelete = (notebook) => {
       <div class="layout">
         <h3>笔记本列表({{ notebooks.length }})</h3>
         <div class="book-list">
-          <router-link v-for="notebook in notebooks" :key="notebook" to="/note/1" class="notebook">
+          <router-link v-for="notebook in notebooks.values" :key="notebook" to="/note/1" class="notebook">
             <div>
               <span class="iconfont icon-notebook" /> {{ notebook.title }}
               <span>{{ notebook.noteCounts }}</span>
