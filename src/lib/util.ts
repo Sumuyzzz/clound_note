@@ -6,7 +6,6 @@ export function friendlyDate(datasString: string) {
   let str = ''
 
 
-  console.log(space)
   switch (true) {
     case space < 6000:
       str = '刚刚'

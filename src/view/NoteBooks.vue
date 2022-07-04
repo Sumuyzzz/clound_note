@@ -39,6 +39,7 @@ const onCreate = () => {
       return Notebooks.addNotebook({ title: value })
     })
     .then(res => {
+      console.log(res.data)
       res.data.friendlyCreatedAt = friendlyDate(res.data.createdAt)
       notebooks.unshift(res.data)
       alert(res.msg)
@@ -58,7 +59,7 @@ const onCreate = () => {
       })
     )
 }
-const onEdit = () => {
+const onEdit = (notebook) => {
   ElMessageBox.prompt(
     '输入新标题',
     '修改笔记本',
@@ -66,13 +67,15 @@ const onEdit = () => {
       confirmButtonText: 'OK',
       cancelButtonText: 'Cancel',
       inputPattern: new RegExp(/^.{1,30}$/),
+      inputValue: notebook.title,
       inputErrorMessage: '标题不能为空,且不能超过30个'
     }
   )
-    .then((value) => {
-      return Notebooks.addNotebook({ title: value })
+    .then(({ value}) => {
+      return Notebooks.updateNotebook(notebook.id, { title: value })
     })
     .then(res => {
+      console.log(res)
       res.data.friendlyCreatedAt = friendlyDate(res.data.createdAt)
       notebooks.unshift(res.data)
       alert(res.msg)
@@ -93,16 +96,24 @@ const onDelete = (notebook) => {
   if (isConfirm) {
     Notebooks.deleteNotebook(notebook.id)
       .then((res) => {
-        notebooks.splice(notebooks.indexOf(notebook), 1)
+        notebooks.filter((item) => item !== notebooks.indexOf(notebook))
         alert(res.msg)
       }).then(() => {
         Notebooks.getAll()
           .then((res) => {
+            console.log(res)
             notebooks.values = res.data
           })
       })
   }
 }
+
+const toNote = (notebook) => {
+
+  router.push( `/note/${notebook.id}` )
+}
+
+
 </script>
 
 <template>
@@ -114,19 +125,19 @@ const onDelete = (notebook) => {
       <div class="layout">
         <h3>笔记本列表({{ notebooks.values.length }})</h3>
         <div class="book-list">
-          <router-link v-for="notebook in notebooks.values" :key="notebook" to="/note:id" class="notebook">
+          <div v-for="notebook in notebooks.values" :key="notebook.id"  class="notebook" @click="toNote(notebook)">
             <div>
               <span class="iconfont icon-notebook" /> {{ notebook.title }}
-              <span class="action" @click.stop.prevent="onEdit">
+              <span class="action" @click.stop.prevent="onEdit(notebook)">
                 <el-button text>
                   编辑</el-button>
               </span>
               <span class="action" @click.stop.prevent="onDelete(notebook)">
                 <el-button text>删除</el-button>
               </span>
-              <span class="date">{{ friendlyDate(notebook.createdAt)}}</span>
+              <span class="date">{{ notebook.friendlyDate }}</span>
             </div>
-          </router-link>
+          </div>
         </div>
       </div>
     </main>
@@ -208,11 +219,11 @@ const onDelete = (notebook) => {
     cursor: pointer;
   }
 
-  main a.notebook:hover {
+  main .notebook:hover {
     background-color: #f7fafd;
   }
 
-  main a.notebook div {
+  main .notebook div {
     border-bottom: 1px solid #ebebeb;
     padding: 12px 14px;
   }
