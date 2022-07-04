@@ -5,12 +5,14 @@ export function friendlyDate(datasString: string) {
   const space = now - time
   let str = ''
 
+
+  console.log(space)
   switch (true) {
     case space < 6000:
       str = '刚刚'
       break
     case space < 1000 * 3600:
-      str = `${Math.floor(space / 1000)}分钟前`
+      str = `${Math.floor(space / 100000)}分钟前`
       break
     case space < 1000 * 3600 * 24:
       str = `${Math.floor(space / (1000 * 3600))}小时前`

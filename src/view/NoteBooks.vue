@@ -49,7 +49,7 @@ const onCreate = () => {
     }).then((res) => {
       Notebooks.getAll(res)
         .then((res) => {
-          notebooks = res.data
+          notebooks.values = res.data
         })
     }).catch((res) =>
       ElMessage({
@@ -121,7 +121,6 @@ const onDelete = (notebook) => {
                 <el-button text>
                   编辑</el-button>
               </span>
-
               <span class="action" @click.stop.prevent="onDelete(notebook)">
                 <el-button text>删除</el-button>
               </span>
