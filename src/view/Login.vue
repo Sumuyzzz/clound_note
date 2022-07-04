@@ -78,6 +78,7 @@ const onLogin = () => {
     login.isError = false
     login.notice = ''
     router.push({ path: '/' })
+    alert('登陆成功')
   }).catch((e) => {
     login.isError = true
     login.notice = e.msg

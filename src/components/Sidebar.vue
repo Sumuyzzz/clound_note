@@ -12,7 +12,7 @@ function login() {
 
 const logout = () => {
   alert('已退出登录')
-  Auth.logout().then((data: String) => {
+  Auth.logout().then(() => {
     router.push({ path: '/login' })
   })
 }
@@ -21,7 +21,6 @@ const logout = () => {
 <template>
   <div id="sidebar">
     <avatar @login="login" />
-
     <div class="icons">
       <router-link to="/note:1" title="笔记" class="link">
         <i class="iconfont icon-note" />

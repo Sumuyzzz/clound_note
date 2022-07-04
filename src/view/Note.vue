@@ -1,12 +1,17 @@
-<script setup lang="ts">
-import { ref } from 'vue'
-const msg = ref(' note ')
+<script  setup>
+import Auth from '../lib/auth'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+Auth.getInfo()
+  .then((res) => {
+    if (!res.isLogin)
+      router.push({ path: '/login' })
+  })
 </script>
 
 <template>
-  <div id="note">
-    <h1>{{ msg }}</h1>
-  </div>
+
 </template>
 
 <style scoped>

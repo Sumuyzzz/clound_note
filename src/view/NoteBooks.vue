@@ -1,7 +1,6 @@
 <script setup>
 import { useRouter } from 'vue-router'
-import { reactive, ref } from 'vue'
-import request from '../lib/request'
+import { reactive, onMounted, onBeforeMount, onUpdated ,onBeforeUpdate} from 'vue'
 import Notebooks from '../lib/notebooks'
 import Auth from '../lib/auth'
 import { friendlyDate } from '@/lib/util'
@@ -18,54 +17,99 @@ Auth.getInfo()
 
 Notebooks.getAll()
   .then((res) => {
-    window.console.log(res)
     notebooks.values = res.data
   })
 
+
+
 const onCreate = () => {
-  const title = window.prompt('创建笔记本')
-  if (!title) {
-    alert('笔记本名不能为空')
-    return
-  }
-  Notebooks.addNotebook({ title })
-    .then((res) => {
-      window.console.log(res)
+  ElMessageBox.prompt(
+    '输入新标题',
+    '创建笔记本',
+    {
+      confirmButtonText: 'OK',
+      cancelButtonText: 'Cancel',
+      inputPattern: new RegExp(/^.{1,30}$/),
+      inputErrorMessage: '标题不能为空,且不能超过30个'
+    }
+  )
+    .then(({ value }) => {
+      return Notebooks.addNotebook({ title: value })
+    })
+    .then(res => {
       res.data.friendlyCreatedAt = friendlyDate(res.data.createdAt)
       notebooks.unshift(res.data)
       alert(res.msg)
-    })
+      ElMessage({
+        type: 'success',
+        message: res.msg,
+      })
+    }).then((res) => {
+      Notebooks.getAll(res)
+        .then((res) => {
+          notebooks.values = res.data
+        })
+    }).catch((res) =>
+      ElMessage({
+        type: 'error',
+        message: res,
+      })
+    )
 }
-const onEdit = (notebook) => {
-  window.console.log('edit...', notebook)
-  const title = window.prompt('修改标题', notebook.title)
-
-  Notebooks.updateNotebook(notebook.id, { title })
-    .then((res) => {
-      window.console.log(res)
-      notebook.title = title
-      alert(res.msg)
+const onEdit = () => {
+  ElMessageBox.prompt(
+    '输入新标题',
+    '修改笔记本',
+    {
+      confirmButtonText: 'OK',
+      cancelButtonText: 'Cancel',
+      inputPattern: new RegExp(/^.{1,30}$/),
+      inputErrorMessage: '标题不能为空,且不能超过30个'
+    }
+  )
+    .then((value) => {
+      return Notebooks.addNotebook({ title: value })
     })
+    .then(res => {
+      res.data.friendlyCreatedAt = friendlyDate(res.data.createdAt)
+      notebooks.unshift(res.data)
+      alert(res.msg)
+      ElMessage({
+        type: 'success',
+        message: res.msg,
+      })
+    }).catch((res) =>
+      ElMessage({
+        type: 'error',
+        message: res,
+      })
+    )
 }
 
 const onDelete = (notebook) => {
-  window.console.log('delete', notebook)
   const isConfirm = window.confirm('你确定要删除吗?')
   if (isConfirm) {
     Notebooks.deleteNotebook(notebook.id)
       .then((res) => {
-        window.console.log(res)
         notebooks.splice(notebooks.indexOf(notebook), 1)
         alert(res.msg)
+      }).then(()=> {
+        Notebooks.getAll()
+          .then((res) => {
+            notebooks.values = res.data
+          })
       })
   }
 }
+
+
+
 </script>
 
 <template>
   <div id="notebook-list" class="detail">
     <header>
-      <a href="#" class="btn" @click.prevent="onCreate"><i class="iconfont icon-plus" /> 新建笔记本</a>
+      <el-button text @click="onCreate">新建</el-button>
     </header>
     <main>
       <div class="layout">
@@ -75,9 +119,16 @@ const onDelete = (notebook) => {
             <div>
               <span class="iconfont icon-notebook" /> {{ notebook.title }}
               <span>{{ notebook.noteCounts }}</span>
-              <span class="action" @click.stop.prevent="onEdit(notebook)">编辑</span>
-              <span class="action" @click.stop.prevent="onDelete(notebook)">删除</span>
+              <span class="action" @click.stop.prevent="onEdit">
+                <el-button text>
+                  编辑</el-button>
+              </span>
+
+              <span class="action" @click.stop.prevent="onDelete(notebook)">
+                <el-button text>删除</el-button>
+              </span>
               <span class="date">{{ notebook.friendlyCreatedAt }}</span>
+
             </div>
           </router-link>
         </div>
