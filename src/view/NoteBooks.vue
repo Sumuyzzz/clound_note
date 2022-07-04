@@ -1,6 +1,6 @@
 <script setup>
 import { useRouter } from 'vue-router'
-import { reactive, onMounted, onBeforeMount, onUpdated ,onBeforeUpdate} from 'vue'
+import { reactive } from 'vue'
 import Notebooks from '../lib/notebooks'
 import Auth from '../lib/auth'
 import { friendlyDate } from '@/lib/util'
@@ -15,8 +15,10 @@ Auth.getInfo()
       router.push({ path: '/login' })
   })
 
+
 Notebooks.getAll()
   .then((res) => {
+    console.log(res)
     notebooks.values = res.data
   })
 
@@ -47,7 +49,7 @@ const onCreate = () => {
     }).then((res) => {
       Notebooks.getAll(res)
         .then((res) => {
-          notebooks.values = res.data
+          notebooks = res.data
         })
     }).catch((res) =>
       ElMessage({
@@ -93,7 +95,7 @@ const onDelete = (notebook) => {
       .then((res) => {
         notebooks.splice(notebooks.indexOf(notebook), 1)
         alert(res.msg)
-      }).then(()=> {
+      }).then(() => {
         Notebooks.getAll()
           .then((res) => {
             notebooks.values = res.data
@@ -101,9 +103,6 @@ const onDelete = (notebook) => {
       })
   }
 }
-
-
-
 </script>
 
 <template>
@@ -113,12 +112,11 @@ const onDelete = (notebook) => {
     </header>
     <main>
       <div class="layout">
-        <h3>笔记本列表({{ notebooks.length }})</h3>
+        <h3>笔记本列表({{ notebooks.values.length }})</h3>
         <div class="book-list">
-          <router-link v-for="notebook in notebooks.values" :key="notebook" to="/note/1" class="notebook">
+          <router-link v-for="notebook in notebooks.values" :key="notebook" to="/note:id" class="notebook">
             <div>
               <span class="iconfont icon-notebook" /> {{ notebook.title }}
-              <span>{{ notebook.noteCounts }}</span>
               <span class="action" @click.stop.prevent="onEdit">
                 <el-button text>
                   编辑</el-button>
@@ -127,8 +125,7 @@ const onDelete = (notebook) => {
               <span class="action" @click.stop.prevent="onDelete(notebook)">
                 <el-button text>删除</el-button>
               </span>
-              <span class="date">{{ notebook.friendlyCreatedAt }}</span>
-
+              <span class="date">{{ friendlyDate(notebook.createdAt)}}</span>
             </div>
           </router-link>
         </div>
