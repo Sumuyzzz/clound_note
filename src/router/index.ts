@@ -9,8 +9,8 @@ import Trash from '@/view/Trash.vue'
 const routes = [
   { path: '/notebooks', component: NoteBooks },
   { path: '/login', component: Login },
-  { path: '/note:id', component: Note },
-  { path: '/trash:id', component: Trash }
+  { path: '/note', component: Note },
+  { path: '/trash', component: Trash }
 ]
 
 
