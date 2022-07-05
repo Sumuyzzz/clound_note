@@ -1,7 +1,7 @@
 export default class EventEmitter {
   static eventObject: any
 
-  events: any
+  public events: any
 
   constructor() {
     this.init()

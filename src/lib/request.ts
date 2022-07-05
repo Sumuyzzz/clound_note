@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { ElMessage } from 'element-plus'
+
 
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
 
@@ -7,12 +7,13 @@ axios.defaults.baseURL = 'https://note-server.hunger-valley.com'
 
 axios.defaults.withCredentials = true
 
-interface Options {
-  url: string
-  method: string
+interface Options<T = {}> {
+  url?: string
+  method?: string
   validateStatus: (value: number) => boolean
-  data?: {}
-  params?: {}
+  data?: T
+  params?: T
+  request?: any;
 }
 
 export default function request(url: string, type = 'GET', data = {}) {
@@ -36,7 +37,7 @@ export default function request(url: string, type = 'GET', data = {}) {
         reject(res.data)
       }
     })
-      .catch((error) => {
+      .catch((error:unknown) => {
         reject(error)
       })
   })
