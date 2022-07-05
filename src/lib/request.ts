@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { ElMessage } from 'element-plus'
 
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
 
@@ -23,23 +24,21 @@ export default function request(url: string, type = 'GET', data = {}) {
         return (status === 400 || (status >= 200 && status < 300))
       },
     }
-    if (type.toLowerCase() === 'get')
+    if (type === 'GET')
       option.params = data
     else
       option.data = data
-
     axios(option).then((res) => {
       if (res.status === 200) {
         resolve(res.data)
       }
       else {
-        console.error(res.data)
         reject(res.data)
       }
-    }).catch((error) => {
-      console.error(error)
-      reject(error)
     })
+      .catch((error) => {
+        reject(error)
+      })
   })
 }
 

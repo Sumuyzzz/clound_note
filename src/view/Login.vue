@@ -44,15 +44,17 @@ const onRegister = () => {
     register.notice = '密码长度为6~16个字符'
     return
   }
+  alert('创建成功')
   register.isError = false
   register.notice = ''
+  showLogin()
   Auth.register({
     username: register.username,
     password: register.password,
-  }).then((data) => {
+  }).then(() => {
     register.isError = false
     register.notice = '注册成功'
-  }).catch((e) => {
+  }).catch(() => {
     register.isError = true
   })
 }
@@ -74,7 +76,7 @@ const onLogin = () => {
   Auth.login({
     username: login.username,
     password: login.password,
-  }).then((data) => {
+  }).then(() => {
     login.isError = false
     login.notice = ''
     router.push({ path: '/' })

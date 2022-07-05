@@ -23,7 +23,6 @@ Notebooks.getAll()
   })
 
 
-
 const onCreate = () => {
   ElMessageBox.prompt(
     '输入新标题',
@@ -36,16 +35,14 @@ const onCreate = () => {
     }
   )
     .then(({ value }) => {
-      return Notebooks.addNotebook({ title: value })
+      return Notebooks.addNotebook({ title: value, friendlyCreatedAt :''})
     })
     .then(res => {
-      console.log(res.data)
       res.data.friendlyCreatedAt = friendlyDate(res.data.createdAt)
       notebooks.unshift(res.data)
-      alert(res.msg)
       ElMessage({
+        message: '创建成功',
         type: 'success',
-        message: res.msg,
       })
     }).then((res) => {
       Notebooks.getAll(res)
@@ -75,13 +72,11 @@ const onEdit = (notebook) => {
       return Notebooks.updateNotebook(notebook.id, { title: value })
     })
     .then(res => {
-      console.log(res)
-      res.data.friendlyCreatedAt = friendlyDate(res.data.createdAt)
       notebooks.unshift(res.data)
       alert(res.msg)
       ElMessage({
         type: 'success',
-        message: res.msg,
+        message: '修改成功',
       })
     }).catch((res) =>
       ElMessage({
@@ -97,7 +92,11 @@ const onDelete = (notebook) => {
     Notebooks.deleteNotebook(notebook.id)
       .then((res) => {
         notebooks.filter((item) => item !== notebooks.indexOf(notebook))
-        alert(res.msg)
+      }).then(() => {
+        ElMessage({
+          type: 'success',
+          message:'删除成功',
+        })
       }).then(() => {
         Notebooks.getAll()
           .then((res) => {
@@ -109,7 +108,6 @@ const onDelete = (notebook) => {
 }
 
 const toNote = (notebook) => {
-
   router.push( `/note/${notebook.id}` )
 }
 
@@ -135,7 +133,7 @@ const toNote = (notebook) => {
               <span class="action" @click.stop.prevent="onDelete(notebook)">
                 <el-button text>删除</el-button>
               </span>
-              <span class="date">{{ notebook.friendlyDate }}</span>
+              <span class="date">{{friendlyDate(notebook.createdAt) }}</span>
             </div>
           </div>
         </div>
