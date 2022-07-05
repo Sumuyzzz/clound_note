@@ -22,13 +22,13 @@ const logout = () => {
   <div id="sidebar">
     <avatar @login="login" />
     <div class="icons">
-      <router-link to="/note:1" title="笔记" class="link">
+      <router-link to="/note" title="笔记" class="link">
         <i class="iconfont icon-note" />
       </router-link>
       <router-link to="/notebooks" title="笔记本" class="link">
         <i class="iconfont icon-notebook" />
       </router-link>
-      <router-link to="/trash:2" title="回收站" class="link">
+      <router-link to="/trash" title="回收站" class="link">
         <i class="iconfont icon-trash" />
       </router-link>
     </div>
