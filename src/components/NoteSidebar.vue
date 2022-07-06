@@ -5,9 +5,10 @@
       <span class="el-dropdown-link">
         {{ curBook.title }}<i class="iconfont icon-down"></i>
       </span>
-      <template #dropdown>
+      <template #dropdown class="template">
         <el-dropdown-menu>
-          <el-dropdown-item v-for="noteBook in noteBooks" :command="noteBook.id" :key="noteBook.id">
+          <el-dropdown-item class="dropdown-menu" v-for="noteBook in noteBooks" :command="noteBook.id"
+            :key="noteBook.id">
             {{ noteBook.title }}
           </el-dropdown-item>
           <el-dropdown-item command="trash">回收站</el-dropdown-item>
@@ -21,7 +22,7 @@
     <ul class="notes">
       <li v-for="note in notes" :key="note.id">
         <router-link :to="`/note?noteId=${note.id}&notebookId=${curBook.id}`">
-          <span class="date">{{ friendlyDate(note.createdAt) }}</span>
+          <span class="date">{{ note.createdAtFriendlyDate }}</span>
           <span class="title">{{ note.title }}</span>
         </router-link>
       </li>
@@ -33,7 +34,6 @@
 import Notebooks from '@/lib/noteBooks'
 import { getAll, addNote } from '@/lib/notes'
 import useBus from '@/lib/bus'
-import { friendlyDate } from '@/lib/util'
 import { useRoute, useRouter } from 'vue-router'
 import { onMounted, ref } from 'vue';
 
@@ -48,18 +48,15 @@ onMounted(async () => {
   const res = await Notebooks.getAll()
   noteBooks.value = res.data
   curBook.value = noteBooks.value.find((noteBook) => noteBook.id == route.query.notebookId) || noteBooks.value[0] || {}
-  console.log(curBook.value.id)
   const history = await getAll({ notebookId: curBook.value.id })
-  notes.value = history.data
+  notes.value = history.data.sort((a, b) => a - b)
+  console.log(history.data)
+  console.log(notes.value);
 },
 )
 
-
-
 const handleCommand = (notebookId) => {
-  console.log(notebookId)
   if (notebookId === 'trash') {
-    console.log(notebookId)
     return router.push({ path: '/trash' })
   }
   curBook.value = noteBooks.value.find((noteBook) => noteBook.id)
@@ -71,10 +68,10 @@ const handleCommand = (notebookId) => {
 }
 
 const addNotes = () => {
-  addNote({ notebookId: curBook.id }, { title: '', content: '' })
+  addNote({ notebookId: curBook.value.id }, { title: '', content: '' })
     .then((response) => {
-      console.log(response)
-      notes.unshift(response.data)
+      notes.value.push(response.data)
+      alert('添加成功')
     })
 }
 </script>
@@ -88,6 +85,7 @@ const addNotes = () => {
 
   .add-note {
     position: absolute;
+    cursor: pointer;
     right: 5px;
     top: 12px;
     color: #666;
@@ -98,9 +96,24 @@ const addNotes = () => {
     z-index: 1;
   }
 
-  .el-dropdown-link {
-    cursor: pointer;
+  .notebook-title {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    .el-dropdown-link {
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 30px;
+      color: #000;
+    }
+
+    .template {
+      border: 1px red solid;
+
+    }
   }
+
 
   .menu {
     display: flex;
@@ -124,18 +137,21 @@ const addNotes = () => {
 
   .notes {
     padding: 0;
+    overflow: auto;
+    border: 1px solid red;
 
     li {
       list-style: none;
       width: 100%;
-      display:flex;
+      display: flex;
+
       &:noth-child(odd) {
         background-color: #f2f2f2;
       }
 
       a,
       a:hover {
-        width:100%;
+        width: 100%;
         display: flex;
         padding: 3px 0;
         font-size: 12px;

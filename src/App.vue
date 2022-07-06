@@ -18,11 +18,19 @@ Auth.getInfo().then((res: any) => {
   </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 @import '//at.alicdn.com/t/font_496303_kqrjhri8l25d0a4i.css';
 
 .layout {
   display: flex;
-  height: 100vh;
+  height: 100%;
+  overflow: hidden;
 }
 </style>
+<style lang="scss">
+body {
+  #app {
+    height: 100vh;
+  }
+}
+</style> 
