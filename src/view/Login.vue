@@ -81,7 +81,7 @@ const onLogin = () => {
     login.notice = ''
     router.push({ path: '/' })
     alert('登陆成功')
-  }).catch((e) => {
+  }).catch((e: any) => {
     login.isError = true
     login.notice = e.msg
   })
@@ -166,7 +166,7 @@ const close = () => {
 
       .main {
         flex: 1;
-        background: #36bc64 url(//cloud.hunger-valley.com/17-12-13/38476998.jpg-middle) center center no-repeat;
+        /* background: #36bc64 url(//cloud.hunger-valley.com/17-12-13/38476998.jpg-middle) center center no-repeat; */
         background-size: contain;
       }
 

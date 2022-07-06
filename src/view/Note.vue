@@ -1,6 +1,7 @@
 <script  setup>
 import Auth from '../lib/auth'
 import { useRouter } from 'vue-router'
+import NoteSidebar from '@/components/NoteSidebar.vue';
 
 const router = useRouter()
 Auth.getInfo()
@@ -11,6 +12,8 @@ Auth.getInfo()
 </script>
 
 <template>
+<NoteSidebar></NoteSidebar>
+
 
 </template>
 

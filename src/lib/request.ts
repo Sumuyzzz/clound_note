@@ -16,7 +16,7 @@ interface Options<T = {}> {
   request?: any;
 }
 
-export default function request(url: string, type = 'GET', data = {}) {
+export const request = (url: string, type = 'GET', data = {}) => {
   return new Promise((resolve, reject) => {
     const option: Options = {
       url,
@@ -37,9 +37,14 @@ export default function request(url: string, type = 'GET', data = {}) {
         reject(res.data)
       }
     })
-      .catch((error:unknown) => {
+      .catch((error: unknown) => {
         reject(error)
       })
   })
 }
+
+
+
+
+
 

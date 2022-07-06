@@ -3,23 +3,21 @@ import { computed, onUpdated, ref } from 'vue'
 import Auth from '@/lib/auth'
 import EventEmitter from '@/lib/bus'
 
-const username = ref('未登录')
 
 const bus = new EventEmitter()
 
-bus.on('userInfo', user => {
-  username.value = user.username
-})
-
+const username = ref('未登录')
 Auth.getInfo().then((userData: any) => {
   if (userData.isLogin)
     username.value = userData.data.username
 })
 
-
 onUpdated(() => {
+  bus.on('userInfo', user => {
+    username.value = user.username
+  })
+
   Auth.getInfo().then((userData: any) => {
-    console.log(userData)
     if (userData.isLogin)
       username.value = userData.data.username
   })
@@ -35,6 +33,7 @@ const slug = computed({
   },
 },
 )
+
 </script>
 
 <template>

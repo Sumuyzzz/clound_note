@@ -1,4 +1,4 @@
-import request from '@/lib/request'
+import { request } from '@/lib/request'
 import { friendlyDate } from '@/lib/util'
 
 
@@ -15,7 +15,7 @@ type Note = {
   content: string;
 }
 
-const getAll = ({ notebookId }: Note) => {
+const getAll = ({ notebookId}: Note) => {
   return new Promise((resolve, reject) => {
     request(URL.GET.replace(':notebookId', notebookId))
       .then((response: any) => {
@@ -48,7 +48,7 @@ const deleteNote = ({ notebookId }: Note) => {
   return request(URL.DELETE.replace(':noteId', notebookId), 'DELETE')
 }
 
-const addNote = ({ notebookId }: Note, { title = '', content = '' }: Note) => {
+const addNote = ({ notebookId }: Note, { title = '', content = '' }={title: '', content: ''}) => {
   return new Promise((resolve, reject) => {
     request(URL.ADD.replace(':notebookId', notebookId), 'POST', { title, content })
       .then((response: any) => {
