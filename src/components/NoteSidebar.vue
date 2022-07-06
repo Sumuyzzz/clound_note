@@ -49,8 +49,8 @@ onMounted(async () => {
   noteBooks.value = res.data
   curBook.value = noteBooks.value.find((noteBook) => noteBook.id == route.query.notebookId) || noteBooks.value[0] || {}
   console.log(curBook.value.id)
-  const xxx = await getAll({ notebookId: curBook.value.id })
-  notes.value = xxx.data
+  const history = await getAll({ notebookId: curBook.value.id })
+  notes.value = history.data
 },
 )
 
