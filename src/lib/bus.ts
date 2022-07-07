@@ -26,6 +26,7 @@ export default class EventEmitter {
   }
 
   emit(target: string, ...args: any) {
+    console.log(args)
     this.events[target].forEach((handle: () => void) => {
       handle.apply(this, args)
     })

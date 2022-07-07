@@ -16,6 +16,8 @@ const logout = () => {
     router.push({ path: '/login' })
   })
 }
+
+
 </script>
 
 <template>

@@ -108,7 +108,7 @@ const onDelete = (notebook) => {
 }
 
 const toNote = (notebook) => {
-  router.push( `/note/noteBookId=${notebook.id}` )
+  router.push( `/note/?notebookId=${notebook.id}` )
 }
 
 
