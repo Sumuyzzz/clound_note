@@ -38,7 +38,6 @@
 <script  setup>
 import Notebooks from '@/lib/noteBooks'
 import { getAll, addNote } from '@/lib/notes'
-import useBus from '@/lib/bus'
 import { useRoute, useRouter } from 'vue-router'
 import { onMounted, ref, onUpdated } from 'vue';
 
@@ -58,18 +57,14 @@ onMounted(async () => {
 },
 )
 
-onUpdated(async () => {
-  const res = await Notebooks.getAll()
-  noteBooks.value = res.data
-  curBook.value = noteBooks.value.find((noteBook) => noteBook.id == route.query.notebookId) || noteBooks.value[0]
-})
-
-
 const handleCommand = (notebookId) => {
   if (notebookId === 'trash') {
     return router.push({ path: '/trash' })
   }
-  curBook.value = noteBooks.value.find((noteBook) => noteBook.id)
+  console.log(notebookId)
+  console.log('changed')
+  curBook.value = noteBooks.value.find((noteBook) => noteBook.id === notebookId)
+  console.log(curBook.value)
   getAll({ notebookId })
     .then((response) => {
       notes.value = response.data
@@ -77,7 +72,12 @@ const handleCommand = (notebookId) => {
 }
 
 const addNotes = () => {
-  addNote({ notebookId: curBook.value.id }, { title: '', content: '' })
+  let title = prompt()
+  if (title === '') {
+    alert('标题不能为空')
+    return
+  }
+  addNote({ notebookId: curBook.value.id }, { title: title, content: '' })
     .then((response) => {
       notes.value.push(response.data)
       alert('添加成功')
@@ -141,10 +141,8 @@ const addNotes = () => {
     }
   }
 
+
   .content {
-
-
-
     .notes {
       padding: 0 10px 0 0;
 
@@ -161,6 +159,12 @@ const addNotes = () => {
           background-color: #f2f2f2;
         }
 
+        .router-link-active {
+          &:hover {
+            border: 1px solid red;
+          }
+        }
+
         a,
         a:hover {
           width: 100%;
@@ -172,17 +176,14 @@ const addNotes = () => {
           color: #333;
         }
 
-        .router-link-exact-active {
-          border: 2px solid #81c0f3;
-          border-radius: 3px;
-        }
-
         span {
           padding: 0 10px;
           flex: 1;
           align-self: center;
         }
       }
+
+
 
       .title {
         font-size: 18px;

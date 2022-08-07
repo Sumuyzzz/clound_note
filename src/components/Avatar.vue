@@ -16,7 +16,6 @@ onUpdated(() => {
   bus.on('userInfo', user => {
     username.value = user.username
   })
-
   Auth.getInfo().then((userData: any) => {
     if (userData.isLogin)
       username.value = userData.data.username
@@ -26,14 +25,13 @@ onUpdated(() => {
 
 const slug = computed({
   get() {
-    return username.value[0]
+    return username.value.charAt(0)
   },
   set(newValue) {
     return username.value = newValue
   },
 },
 )
-
 </script>
 
 <template>

@@ -44,7 +44,6 @@ const onRegister = () => {
     register.notice = '密码长度为6~16个字符'
     return
   }
-  alert('创建成功')
   register.isError = false
   register.notice = ''
   showLogin()
@@ -52,9 +51,11 @@ const onRegister = () => {
     username: register.username,
     password: register.password,
   }).then(() => {
+    alert('创建成功')
     register.isError = false
     register.notice = '注册成功'
   }).catch(() => {
+    console.log('error')
     register.isError = true
   })
 }

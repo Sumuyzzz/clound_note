@@ -13,7 +13,6 @@ interface Options<T = {}> {
   validateStatus: (value: number) => boolean
   data?: T
   params?: T
-  request?: any;
 }
 
 export const request = (url: string, type = 'GET', data = {}) => {
