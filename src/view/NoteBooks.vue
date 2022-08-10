@@ -20,7 +20,7 @@ Notebooks.getAll()
   .then((res) => {
     console.log(res)
     notebooks.values = res.data
-  })
+})
 
 
 const onCreate = () => {

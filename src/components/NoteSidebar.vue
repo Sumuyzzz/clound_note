@@ -39,7 +39,7 @@
 import Notebooks from '@/lib/noteBooks'
 import { getAll, addNote } from '@/lib/notes'
 import { useRoute, useRouter } from 'vue-router'
-import { onMounted, ref, onUpdated } from 'vue';
+import { onMounted, ref  } from 'vue';
 
 const noteBooks = ref([])
 const notes = ref([])
